@@ -180,3 +180,9 @@ If you skipped the [Introduction](/guide/introduction), we strongly recommend re
     <p class="next-steps-caption">Explore examples of core features and common UI tasks.</p>
   </a>
 </div>
+
+<script setup>
+  import Fract from '/@theme/components/Fract.vue'
+</script>
+
+<Fract/>

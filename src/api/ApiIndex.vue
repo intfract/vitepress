@@ -1,68 +1,75 @@
 <script setup lang="ts">
-// in .vue components or .md pages:
-// named import "data" is the resolved static data
-// can also import types for type consistency
-import { data as apiIndex, APIGroup } from './api.data'
-import { ref, computed } from 'vue'
-
-const query = ref('')
-const normalize = (s: string) => s.toLowerCase().replace(/-/g, ' ')
-
-const filtered = computed(() => {
-  const q = normalize(query.value)
-  const matches = (text: string) => normalize(text).includes(q)
-
-  return apiIndex
-    .map((section) => {
-      // section title match
-      if (matches(section.text)) {
-        return section
-      }
-
-      // filter groups
-      const matchedGroups = section.items
-        .map((item) => {
-          // group title match
-          if (matches(item.text)) {
-            return item
-          }
-          // ssr special case
-          if (q.includes('ssr') && item.text.startsWith('Server')) {
-            return item
-          }
-          // filter headers
-          const matchedHeaders = item.headers.filter(
-            ({ text, anchor }) => matches(text) || matches(anchor)
-          )
-          return matchedHeaders.length
-            ? { text: item.text, link: item.link, headers: matchedHeaders }
-            : null
-        })
-        .filter((i) => i)
-
-      return matchedGroups.length
-        ? { text: section.text, items: matchedGroups }
-        : null
-    })
-    .filter((i) => i) as APIGroup[]
-})
-
-// same as vitepress' slugify logic
-function slugify(text: string): string {
-  return (
-    text
-      // Replace special characters
-      .replace(/[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'<>,.?/]+/g, '-')
-      // Remove continuous separators
-      .replace(/\-{2,}/g, '-')
-      // Remove prefixing and trailing separators
-      .replace(/^\-+|\-+$/g, '')
-      // ensure it doesn't start with a number (#121)
-      .replace(/^(\d)/, '_$1')
-      // lowercase
-      .toLowerCase()
-  )
-}
+  // in .vue components or .md pages:
+  // named import "data" is the resolved static data
+  // can also import types for type consistency
+  import { data as apiIndex, APIGroup } from './api.data'
+  import { ref, computed, onMounted } from 'vue'
+  
+  onMounted(() => {
+    const name = document.querySelector('.VPNavBarTitle .text')
+    const logo = document.querySelector('.VPNavBarTitle .logo')
+    name.innerHTML = 'Defract'
+    logo.innerHTML = ''
+  })
+  
+  const query = ref('')
+  const normalize = (s: string) => s.toLowerCase().replace(/-/g, ' ')
+  
+  const filtered = computed(() => {
+    const q = normalize(query.value)
+    const matches = (text: string) => normalize(text).includes(q)
+  
+    return apiIndex
+      .map((section) => {
+        // section title match
+        if (matches(section.text)) {
+          return section
+        }
+  
+        // filter groups
+        const matchedGroups = section.items
+          .map((item) => {
+            // group title match
+            if (matches(item.text)) {
+              return item
+            }
+            // ssr special case
+            if (q.includes('ssr') && item.text.startsWith('Server')) {
+              return item
+            }
+            // filter headers
+            const matchedHeaders = item.headers.filter(
+              ({ text, anchor }) => matches(text) || matches(anchor)
+            )
+            return matchedHeaders.length
+              ? { text: item.text, link: item.link, headers: matchedHeaders }
+              : null
+          })
+          .filter((i) => i)
+  
+        return matchedGroups.length
+          ? { text: section.text, items: matchedGroups }
+          : null
+      })
+      .filter((i) => i) as APIGroup[]
+  })
+  
+  // same as vitepress' slugify logic
+  function slugify(text: string): string {
+    return (
+      text
+        // Replace special characters
+        .replace(/[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'<>,.?/]+/g, '-')
+        // Remove continuous separators
+        .replace(/\-{2,}/g, '-')
+        // Remove prefixing and trailing separators
+        .replace(/^\-+|\-+$/g, '')
+        // ensure it doesn't start with a number (#121)
+        .replace(/^(\d)/, '_$1')
+        // lowercase
+        .toLowerCase()
+    )
+  }
 </script>
 
 <template>

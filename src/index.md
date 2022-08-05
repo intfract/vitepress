@@ -1,10 +1,12 @@
 ---
 page: true
-title: Vue.js - The Progressive JavaScript Framework
+title: Docs
 ---
 
 <script setup>
-import Home from '/@theme/components/Home.vue'
+  import Home from '/@theme/components/Home.vue'
+  import Fract from '/@theme/components/Fract.vue'
 </script>
 
 <Home />
+<Fract/>

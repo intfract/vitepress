@@ -4,3 +4,25 @@
 @import "./inline-demo.css";
 @import "./utilities.css";
 @import "./style-guide.css";
+
+@font-face {
+  font-family: 'Intfract';
+  src: url('./intfract.otf');
+}
+
+@font-face {
+  font-family: 'Cubano';
+  src: url('./cubano.otf');
+}
+
+body {
+  font-family: Intfract !important;
+}
+
+.tagline .accent {
+  font-family: 'Cubano';
+}
+
+.VPNavBarTitle .text {
+  font-family: 'Cubano';
+}

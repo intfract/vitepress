@@ -1,28 +1,16 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import NewsLetter from './NewsLetter.vue'
-import { load, data, base } from './sponsors';
-import SponsorsGroup from './SponsorsGroup.vue';
-import VueMasteryModal from './VueMasteryModal.vue';
-
-onMounted(async () => {
-  await load()
-})
+  
 </script>
 
 <template>
   <section id="hero">
     <h1 class="tagline">
-      The
-      <span class="accent">Progressive</span>
-      <br />JavaScript Framework
+      <span class="accent">Defract</span>
     </h1>
     <p class="description">
-      An approachable, performant and versatile framework for building web
-      user interfaces.
+      A modern JavaScript utility library that delivers functions for data structures, calculations, and more! 
     </p>
     <p class="actions">
-      <vue-mastery-modal />
       <a class="get-started" href="/guide/introduction.html">
         Get Started
         <svg
@@ -39,22 +27,6 @@ onMounted(async () => {
       </a>
       <a class="setup" href="/guide/quick-start.html">Install</a>
     </p>
-  </section>
-
-  <section id="special-sponsor">
-    <span>Special Sponsor</span>
-    <template v-if="data && data.special">
-      <template v-for="{ url, img, name, description } of data.special">
-        <a :href="url" target="_blank" rel="sponsored noopener">
-          <picture v-if="img.endsWith('png')">
-            <source type="image/avif" :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`" />
-            <img :src="`${base}/images/${img}`" :alt="name" />
-          </picture>
-          <img v-else :src="`${base}/images/${img}`" :alt="name" />
-        </a>
-        <span v-if="description">{{ description }}</span>
-      </template>
-    </template>
   </section>
 
   <section id="highlights" class="vt-box-container">
@@ -80,15 +52,6 @@ onMounted(async () => {
       </p>
     </div>
   </section>
-
-  <section id="sponsors">
-    <h2>Platinum Sponsors</h2>
-    <SponsorsGroup tier="platinum" placement="landing" />
-    <h2>Gold Sponsors</h2>
-    <SponsorsGroup tier="gold" placement="landing" />
-  </section>
-
-  <NewsLetter />
 </template>
 
 <style scoped>
@@ -112,7 +75,7 @@ section {
 
 html:not(.dark) .accent,
 .dark .tagline {
-  background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+  background: -webkit-linear-gradient(315deg, var(--vt-c-green) 25%, var(--vt-c-blue));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -174,71 +137,6 @@ html:not(.dark) .accent,
   background-color: var(--vt-c-gray-dark-3);
 }
 
-#special-sponsor {
-  border-top: 1px solid var(--vt-c-divider-light);
-  border-bottom: 1px solid var(--vt-c-divider-light);
-  padding: 12px 24px;
-  text-align: center;
-}
-
-#special-sponsor span {
-  color: var(--vt-c-text-2);
-  font-weight: 500;
-  font-size: 13px;
-  vertical-align: middle;
-  margin-right: 24px;
-}
-
-#special-sponsor img {
-  display: inline-block;
-  vertical-align: middle;
-  height: 36px;
-  margin-right: 24px;
-}
-
-.dark #special-sponsor img {
-  filter: grayscale(1) invert(1);
-}
-
-#highlights {
-  max-width: 960px;
-  margin: 0px auto;
-  color: var(--vt-c-text-2);
-}
-
-#highlights h2 {
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: -0.4px;
-  color: var(--vt-c-text-1);
-  transition: color 0.5s;
-  margin-bottom: 0.75em;
-}
-
-#highlights p {
-  font-weight: 400;
-  font-size: 15px;
-}
-
-#highlights .vt-box {
-  background-color: transparent;
-}
-
-#sponsors {
-  max-width: 900px;
-  margin: 0px auto;
-}
-
-#sponsors h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 1em;
-}
-
-#sponsors .sponsor-container {
-  margin-bottom: 3em;
-}
-
 @media (max-width: 960px) {
   .tagline {
     font-size: 64px;
@@ -264,10 +162,6 @@ html:not(.dark) .accent,
   .description {
     font-size: 16px;
     margin: 18px 0 30px;
-  }
-  #special-sponsor img {
-    display: block;
-    margin: 2px auto 1px;
   }
   #highlights h3 {
     margin-bottom: 0.6em;

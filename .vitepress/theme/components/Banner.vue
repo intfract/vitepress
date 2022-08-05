@@ -19,27 +19,7 @@ function dismiss() {
 </script>
 
 <template>
-  <div class="banner banner-vuejsconf" v-if="open">
-    <a href="https://conf.vuejs.de" target="_blank">
-      <picture>
-        <source
-          media="(min-width:1200px)"
-          srcset="/images/vuejsde-conf/vuejsdeconf_banner_large.png"
-        />
-        <source
-          media="(min-width:920px)"
-          srcset="/images/vuejsde-conf/vuejsdeconf_banner_medium.png"
-        />
-        <img
-          src="/images/vuejsde-conf/vuejsdeconf_banner_small.png"
-          alt=""
-        />
-      </picture>
-    </a>
-    <div class="close-btn" @click.stop.prevent="dismiss">
-      <img src="/images/vuejsde-conf/close.svg" alt="Close" />
-    </div>
-  </div>
+  
 </template>
 
 <style>
